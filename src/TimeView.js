@@ -2,7 +2,8 @@
 
 var React = require('react'),
 	createClass = require('create-react-class'),
-	assign = require('object-assign')
+	assign = require('object-assign'),
+	moment = require('moment')
 	;
 
 var DateTimePickerTime = createClass({
@@ -74,38 +75,36 @@ var DateTimePickerTime = createClass({
 		]);
 	},
 
-	render: function() {
-		var me = this,
-			counters = []
-		;
+	renderTimes: function () {
+		var times = [];
+		var format = 'p';
+		// var intervals = this.props.intervals;
+		var activeTime = this.props.value || moment(moment(), this.props.displayTimezone);
+		var currH = activeTime.format('h');
+		var currM = activeTime.format('m');
+		var base = activeTime.startOf('day');
+		for (var i = 0; i < 24; i++) {
+			var formattedTime;
+			if (i === 0) {
+				formattedTime = 12;
+			} else if (i > 12) {
+				formattedTime = i - 12;
+			} else {
+				formattedTime = i;
+			}
+			times.push(formattedTime);
+		}
 
-		this.state.counters.forEach( function( c ) {
-			if ( counters.length )
-				counters.push( React.createElement('div', { key: 'sep' + counters.length, className: 'rdtCounterSeparator' }, ':' ) );
-			counters.push( me.renderCounter( c ) );
+		return times.map(function (time, idx) {
+			var timeString = time + ':00';
+			return React.createElement('li', { key: idx, onClick: function () { }, value: timeString }, timeString);
 		});
-
-		if ( this.state.daypart !== false ) {
-			counters.push( me.renderDayPart() );
-		}
-
-		if ( this.state.counters.length === 3 && this.props.timeFormat.indexOf( 'S' ) !== -1 ) {
-			counters.push( React.createElement('div', { className: 'rdtCounterSeparator', key: 'sep5' }, ':' ) );
-			counters.push(
-				React.createElement('div', { className: 'rdtCounter rdtMilli', key: 'm' },
-					React.createElement('input', { value: this.state.milliseconds, type: 'text', onChange: this.updateMilli } )
-					)
-				);
-		}
-
-		return React.createElement('div', { className: 'rdtTime' },
-			React.createElement('table', {}, [
-				this.renderHeader(),
-				React.createElement('tbody', { key: 'b'}, React.createElement('tr', {}, React.createElement('td', {},
-					React.createElement('div', { className: 'rdtCounters' }, counters )
-				)))
-			])
-		);
+	},
+	
+	render: function() {
+		var timeSelector = React.createElement('ul', {}, this.renderTimes()),
+			timeSelectorHeader = React.createElement('div', {}, 'Time');
+		return React.createElement('div', {}, [React.createElement('div', {}, timeSelectorHeader), timeSelector]);
 	},
 
 	componentWillMount: function() {

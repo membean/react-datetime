@@ -2,6 +2,17 @@
  * https://github.com/arqex/react-datetime
  */
 
+ .rdtDays {
+  display: flex;
+  height: 300px;
+  overflow: auto;
+}
+
+.time-selector-times {
+  list-style-type: none;
+  padding: 5px;
+}
+
 .rdt {
   position: relative;
 }
@@ -49,6 +60,7 @@
 .rdtPicker td.rdtHour:hover,
 .rdtPicker td.rdtMinute:hover,
 .rdtPicker td.rdtSecond:hover,
+.rdtPicker td.time-selector-time:hover,
 .rdtPicker .rdtTimeToggle:hover {
   background: #eeeeee;
   cursor: pointer;

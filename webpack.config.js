@@ -20,12 +20,5 @@ module.exports = {
     extensions: ['', '.js']
   },
 
-  externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
-    'moment': 'moment',
-    'moment-timezone': 'moment-timezone'
-  },
-
   plugins: plugins
 };

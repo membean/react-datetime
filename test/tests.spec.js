@@ -28,9 +28,9 @@ describe('Datetime', () => {
 
 		// Week days
 		const expectedWeekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-		actualWeekdays = component.find('.rdtDays .dow').map((element) =>
-			element.text()
-		);
+			actualWeekdays = component.find('.rdtDays .dow').map((element) =>
+				element.text()
+			);
 		expect(actualWeekdays).toEqual(expectedWeekDays);
 
 		// Dates
@@ -66,9 +66,10 @@ describe('Datetime', () => {
 
 	it('persistent valid months going monthView->yearView->monthView', () => {
 		const dateBefore = '2018-06-01';
-		const component = utils.createDatetime({ viewMode: 'months', isValidDate: (current) =>
+		const component = utils.createDatetime({
+			viewMode: 'months', isValidDate: (current) =>
 				current.isBefore(moment(dateBefore, 'YYYY-MM-DD'))
-			});
+		});
 
 		expect(utils.isMonthView(component)).toBeTruthy();
 		expect(utils.getNthMonth(component, 4).hasClass('rdtDisabled')).toEqual(false);
@@ -384,7 +385,7 @@ describe('Datetime', () => {
 			const component = utils.createDatetime({ renderInput });
 
 			expect(component.find('button.custom-open').length).toEqual(1);
-            expect(utils.isOpen(component)).toBeFalsy();
+			expect(utils.isOpen(component)).toBeFalsy();
 			utils.clickOnElement(component.find('button.custom-open'));
 			expect(utils.isOpen(component)).toBeTruthy();
 		});
@@ -512,7 +513,7 @@ describe('Datetime', () => {
 			expect(utils.isOpen(component)).toBeTruthy();
 		});
 
-    it('disableCloseOnClickOutside=false', () => {
+		it('disableCloseOnClickOutside=false', () => {
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 				component = utils.createDatetime({ value: date, disableCloseOnClickOutside: false });
 
@@ -527,7 +528,8 @@ describe('Datetime', () => {
 		it('increase time', () => {
 			let i = 0;
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
-				component = utils.createDatetime({ timeFormat: 'HH:mm:ss:SSS', viewMode: 'time',
+				component = utils.createDatetime({
+					timeFormat: 'HH:mm:ss:SSS', viewMode: 'time',
 					defaultValue: date, onChange: (selected) => {
 						// TODO: Trigger onChange when increasing time
 						i++;
@@ -538,7 +540,8 @@ describe('Datetime', () => {
 							expect(selected.second()).toEqual(3);
 							done();
 						}
-					}});
+					}
+				});
 
 			// Check hour
 			expect(utils.getHours(component)).toEqual('2');
@@ -559,7 +562,8 @@ describe('Datetime', () => {
 		it('decrease time', () => {
 			let i = 0;
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
-				component = utils.createDatetime({ timeFormat: 'HH:mm:ss:SSS', viewMode: 'time',
+				component = utils.createDatetime({
+					timeFormat: 'HH:mm:ss:SSS', viewMode: 'time',
 					defaultValue: date, onChange: (selected) => {
 						// TODO: Trigger onChange when increasing time
 						i++;
@@ -570,7 +574,8 @@ describe('Datetime', () => {
 							expect(selected.second()).toEqual(1);
 							done();
 						}
-					}});
+					}
+				});
 
 			// Check hour
 			expect(utils.getHours(component)).toEqual('2');
@@ -615,8 +620,9 @@ describe('Datetime', () => {
 		it('timeConstraints -> increase time', () => {
 			let i = 0;
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
-				component = utils.createDatetime({ timeFormat: 'HH:mm:ss:SSS', viewMode: 'time',
-					defaultValue: date, timeConstraints: { hours: { max: 6, step: 8 }, minutes: { step: 15 }},
+				component = utils.createDatetime({
+					timeFormat: 'HH:mm:ss:SSS', viewMode: 'time',
+					defaultValue: date, timeConstraints: { hours: { max: 6, step: 8 }, minutes: { step: 15 } },
 					onChange: (selected) => {
 						// TODO
 						i++;
@@ -641,8 +647,9 @@ describe('Datetime', () => {
 		it('timeConstraints -> decrease time', () => {
 			let i = 0;
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
-				component = utils.createDatetime({ timeFormat: 'HH:mm:ss:SSS', viewMode: 'time',
-					defaultValue: date, timeConstraints: { minutes: { step: 15 }}, onChange: (selected) => {
+				component = utils.createDatetime({
+					timeFormat: 'HH:mm:ss:SSS', viewMode: 'time',
+					defaultValue: date, timeConstraints: { minutes: { step: 15 } }, onChange: (selected) => {
 						// TODO
 						i++;
 						if (i > 2) {
@@ -662,13 +669,15 @@ describe('Datetime', () => {
 				mDate = moment(date),
 				strDate = mDate.format('L') + ' ' + mDate.format('LT'),
 				invalidStrDate = strDate + 'x',
-				component = utils.createDatetime({ defaultValue: '', strictParsing: true,
+				component = utils.createDatetime({
+					defaultValue: '', strictParsing: true,
 					onChange: (updated) => {
 						expect(updated, invalidStrDate);
 						done();
-					}});
+					}
+				});
 
-			component.find('.form-control').simulate('change', { target: { value: invalidStrDate }});
+			component.find('.form-control').simulate('change', { target: { value: invalidStrDate } });
 		});
 
 		it('strictParsing=false', (done) => {
@@ -676,19 +685,22 @@ describe('Datetime', () => {
 				mDate = moment(date),
 				strDate = mDate.format('L') + ' ' + mDate.format('LT'),
 				invalidStrDate = strDate + 'x',
-				component = utils.createDatetime({ defaultValue: '', strictParsing: false,
+				component = utils.createDatetime({
+					defaultValue: '', strictParsing: false,
 					onChange: (updated) => {
 						expect(mDate.format('L LT')).toEqual(updated.format('L LT'));
 						done();
-					}});
+					}
+				});
 
-			component.find('.form-control').simulate('change', { target: { value: invalidStrDate }});
+			component.find('.form-control').simulate('change', { target: { value: invalidStrDate } });
 		});
 
 		it('isValidDate -> disable months', () => {
 			const dateBefore = new Date().getFullYear() + '-06-01',
-				component = utils.createDatetime({ viewMode: 'months', isValidDate: (current) =>
-					current.isBefore(moment(dateBefore, 'YYYY-MM-DD'))
+				component = utils.createDatetime({
+					viewMode: 'months', isValidDate: (current) =>
+						current.isBefore(moment(dateBefore, 'YYYY-MM-DD'))
 				});
 
 			expect(utils.getNthMonth(component, 0).hasClass('rdtDisabled')).toEqual(false);
@@ -698,8 +710,9 @@ describe('Datetime', () => {
 		});
 
 		it('isValidDate -> disable years', () => {
-			const component = utils.createDatetime({ viewMode: 'years', isValidDate: (current) =>
-				current.isBefore(moment('2016-01-01', 'YYYY-MM-DD'))
+			const component = utils.createDatetime({
+				viewMode: 'years', isValidDate: (current) =>
+					current.isBefore(moment('2016-01-01', 'YYYY-MM-DD'))
 			});
 
 			expect(utils.getNthYear(component, 0).hasClass('rdtDisabled')).toEqual(false);
@@ -954,45 +967,55 @@ describe('Datetime', () => {
 
 		describe('onViewModeChange', () => {
 			it('when switch from days to time view mode', () => {
-				const component = utils.createDatetime({ onViewModeChange: (viewMode) => {
-					expect(viewMode).toEqual('time');
-				}});
+				const component = utils.createDatetime({
+					onViewModeChange: (viewMode) => {
+						expect(viewMode).toEqual('time');
+					}
+				});
 				expect(utils.isDayView(component)).toBeTruthy();
 				utils.clickOnElement(component.find('.rdtTimeToggle'));
 				expect(utils.isTimeView(component)).toBeTruthy();
 			});
 
 			it('when switch from time to days view mode', () => {
-				const component = utils.createDatetime({ viewMode: 'time', onViewModeChange: (viewMode) => {
-					expect(viewMode).toEqual('days');
-				}});
+				const component = utils.createDatetime({
+					viewMode: 'time', onViewModeChange: (viewMode) => {
+						expect(viewMode).toEqual('days');
+					}
+				});
 				expect(utils.isTimeView(component)).toBeTruthy();
 				utils.clickOnElement(component.find('.rdtSwitch'));
 				expect(utils.isDayView(component)).toBeTruthy();
 			});
 
 			it('when switch from days to months view mode', () => {
-				const component = utils.createDatetime({ onViewModeChange: (viewMode) => {
-					expect(viewMode).toEqual('months');
-				}});
+				const component = utils.createDatetime({
+					onViewModeChange: (viewMode) => {
+						expect(viewMode).toEqual('months');
+					}
+				});
 				expect(utils.isDayView(component)).toBeTruthy();
 				utils.clickOnElement(component.find('.rdtSwitch'));
 				expect(utils.isMonthView(component)).toBeTruthy();
 			});
 
 			it('when switch from months to years view mode', () => {
-				const component = utils.createDatetime({ viewMode: 'months', onViewModeChange: (viewMode) => {
-					expect(viewMode).toEqual('years');
-				}});
+				const component = utils.createDatetime({
+					viewMode: 'months', onViewModeChange: (viewMode) => {
+						expect(viewMode).toEqual('years');
+					}
+				});
 				expect(utils.isMonthView(component)).toBeTruthy();
 				utils.clickOnElement(component.find('.rdtSwitch'));
 				expect(utils.isYearView(component)).toBeTruthy();
 			});
 
 			it('only when switch from years to months view mode', () => {
-				const component = utils.createDatetime({ viewMode: 'years', onViewModeChange: (viewMode) => {
-					expect(viewMode).toEqual('months');
-				}});
+				const component = utils.createDatetime({
+					viewMode: 'years', onViewModeChange: (viewMode) => {
+						expect(viewMode).toEqual('months');
+					}
+				});
 				expect(utils.isYearView(component)).toBeTruthy();
 				utils.clickOnElement(component.find('.rdtSwitch'));
 				expect(utils.isYearView(component)).toBeTruthy();
@@ -1001,9 +1024,11 @@ describe('Datetime', () => {
 			});
 
 			it('when switch from months to days view mode', () => {
-				const component = utils.createDatetime({ viewMode: 'months', onViewModeChange: (viewMode) => {
-					expect(viewMode).toEqual('days');
-				}});
+				const component = utils.createDatetime({
+					viewMode: 'months', onViewModeChange: (viewMode) => {
+						expect(viewMode).toEqual('days');
+					}
+				});
 				expect(utils.isMonthView(component)).toBeTruthy();
 				utils.clickNthMonth(component, 2);
 				expect(utils.isDayView(component)).toBeTruthy();
@@ -1032,12 +1057,14 @@ describe('Datetime', () => {
 			it('when selecting date', (done) => {
 				const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 					mDate = moment(date),
-					component = utils.createDatetime({ defaultValue: date, onChange: (selected) => {
-						expect(selected.date()).toEqual(2);
-						expect(selected.month()).toEqual(mDate.month());
-						expect(selected.year()).toEqual(mDate.year());
-						done();
-					}});
+					component = utils.createDatetime({
+						defaultValue: date, onChange: (selected) => {
+							expect(selected.date()).toEqual(2);
+							expect(selected.month()).toEqual(mDate.month());
+							expect(selected.year()).toEqual(mDate.year());
+							done();
+						}
+					});
 
 				utils.clickNthDay(component, 7);
 			});
@@ -1046,15 +1073,17 @@ describe('Datetime', () => {
 				let i = 0;
 				const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 					mDate = moment(date),
-					component = utils.createDatetime({ defaultValue: date, onChange: (selected) => {
-						i++;
-						if (i > 2) {
-							expect(selected.date()).toEqual(4);
-							expect(selected.month()).toEqual(mDate.month());
-							expect(selected.year()).toEqual(mDate.year());
-							done();
+					component = utils.createDatetime({
+						defaultValue: date, onChange: (selected) => {
+							i++;
+							if (i > 2) {
+								expect(selected.date()).toEqual(4);
+								expect(selected.month()).toEqual(mDate.month());
+								expect(selected.year()).toEqual(mDate.year());
+								done();
+							}
 						}
-					}});
+					});
 
 				utils.clickNthDay(component, 7);
 				utils.clickNthDay(component, 8);
@@ -1095,28 +1124,34 @@ describe('Datetime', () => {
 
 	describe('onNavigateForward', () => {
 		it('when moving to next month', () => {
-			const component = utils.createDatetime({ onNavigateForward: (amount, type) => {
-				expect(amount).toEqual(1);
-				expect(type).toEqual('months');
-			}});
+			const component = utils.createDatetime({
+				onNavigateForward: (amount, type) => {
+					expect(amount).toEqual(1);
+					expect(type).toEqual('months');
+				}
+			});
 
 			utils.clickOnElement(component.find('.rdtNext'));
 		});
 
 		it('when moving to next year', () => {
-			const component = utils.createDatetime({ viewMode: 'months', onNavigateForward: (amount, type) => {
-				expect(amount).toEqual(1);
-				expect(type).toEqual('years');
-			}});
+			const component = utils.createDatetime({
+				viewMode: 'months', onNavigateForward: (amount, type) => {
+					expect(amount).toEqual(1);
+					expect(type).toEqual('years');
+				}
+			});
 
 			utils.clickOnElement(component.find('.rdtNext'));
 		});
 
 		it('when moving decade forward', () => {
-			const component = utils.createDatetime({ viewMode: 'years', onNavigateForward: (amount, type) => {
-				expect(amount).toEqual(10);
-				expect(type).toEqual('years');
-			}});
+			const component = utils.createDatetime({
+				viewMode: 'years', onNavigateForward: (amount, type) => {
+					expect(amount).toEqual(10);
+					expect(type).toEqual('years');
+				}
+			});
 
 			utils.clickOnElement(component.find('.rdtNext'));
 		});
@@ -1124,28 +1159,34 @@ describe('Datetime', () => {
 
 	describe('onNavigateBack', () => {
 		it('when moving to previous month', () => {
-			const component = utils.createDatetime({ onNavigateBack: (amount, type) => {
-				expect(amount).toEqual(1);
-				expect(type).toEqual('months');
-			}});
+			const component = utils.createDatetime({
+				onNavigateBack: (amount, type) => {
+					expect(amount).toEqual(1);
+					expect(type).toEqual('months');
+				}
+			});
 
 			utils.clickOnElement(component.find('.rdtPrev'));
 		});
 
 		it('when moving to previous year', () => {
-			const component = utils.createDatetime({ viewMode: 'months', onNavigateBack: (amount, type) => {
-				expect(amount).toEqual(1);
-				expect(type).toEqual('years');
-			}});
+			const component = utils.createDatetime({
+				viewMode: 'months', onNavigateBack: (amount, type) => {
+					expect(amount).toEqual(1);
+					expect(type).toEqual('years');
+				}
+			});
 
 			utils.clickOnElement(component.find('.rdtPrev'));
 		});
 
 		it('when moving decade back', () => {
-			const component = utils.createDatetime({ viewMode: 'years', onNavigateBack: (amount, type) => {
-				expect(amount).toEqual(10);
-				expect(type).toEqual('years');
-			}});
+			const component = utils.createDatetime({
+				viewMode: 'years', onNavigateBack: (amount, type) => {
+					expect(amount).toEqual(10);
+					expect(type).toEqual('years');
+				}
+			});
 
 			utils.clickOnElement(component.find('.rdtPrev'));
 		});
@@ -1203,7 +1244,7 @@ describe('Datetime', () => {
 
 		it('TZ value from local moment', () => {
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
-        displayTimeZone = 'America/New_York',
+				displayTimeZone = 'America/New_York',
 				momentDate = moment(date),
 				momentDateTZ = moment.tz(date, displayTimeZone),
 				strDateTZ = momentDateTZ.format('L') + ' ' + momentDateTZ.format('LT'),
@@ -1225,23 +1266,27 @@ describe('Datetime', () => {
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 				mDate = moment(date),
 				strDate = mDate.format('L') + ' ' + mDate.format('LT'),
-				component = utils.createDatetime({ defaultValue: 'invalid-value', onChange: (updated) => {
-					expect(mDate.format('L LT')).toEqual(updated.format('L LT'));
-					done();
-				}});
+				component = utils.createDatetime({
+					defaultValue: 'invalid-value', onChange: (updated) => {
+						expect(mDate.format('L LT')).toEqual(updated.format('L LT'));
+						done();
+					}
+				});
 
 			expect(component.find('.form-control').getDOMNode().value).toEqual('invalid-value');
-			component.find('.form-control').simulate('change', { target: { value: strDate }});
+			component.find('.form-control').simulate('change', { target: { value: strDate } });
 		});
 
 		it('delete invalid string value', (done) => {
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
-				component = utils.createDatetime({ defaultValue: date, onChange: (date) => {
-					expect(date).toEqual('');
-					done();
-				}});
+				component = utils.createDatetime({
+					defaultValue: date, onChange: (date) => {
+						expect(date).toEqual('');
+						done();
+					}
+				});
 
-			component.find('.form-control').simulate('change', { target: { value: '' }});
+			component.find('.form-control').simulate('change', { target: { value: '' } });
 		});
 
 		it('invalid moment object', (done) => {
@@ -1249,13 +1294,15 @@ describe('Datetime', () => {
 				date = new Date(2000, 0, 15, 2, 2, 2, 2),
 				mDate = moment(date),
 				strDate = mDate.format('L') + ' ' + mDate.format('LT'),
-				component = utils.createDatetime({ value: invalidValue, onChange: (updated) => {
-					expect(mDate.format('L LT')).toEqual(updated.format('L LT'));
-					done();
-				}});
+				component = utils.createDatetime({
+					value: invalidValue, onChange: (updated) => {
+						expect(mDate.format('L LT')).toEqual(updated.format('L LT'));
+						done();
+					}
+				});
 
 			expect(component.find('.form-control').getDOMNode().value).toEqual('');
-			component.find('.form-control').simulate('change', { target: { value: strDate }});
+			component.find('.form-control').simulate('change', { target: { value: strDate } });
 		});
 
 	});

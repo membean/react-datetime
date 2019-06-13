@@ -39,11 +39,6 @@
   ],
   "author": "Javier Marquez",
   "license": "MIT",
-  "peerDependencies": {
-    "moment": ">=2.16.0",
-    "react": ">=0.13",
-    "react-dom": ">=0.13"
-  },
   "devDependencies": {
     "@types/react": ">=15",
     "babel-core": "^6.22.1",
@@ -84,10 +79,5 @@
     "object-assign": "^3.0.0",
     "prop-types": "^15.5.7",
     "react-onclickoutside": "^6.5.0"
-  },
-  "pre-commit": [
-    "notify-pre-commit-hook",
-    "lint",
-    "test:all"
-  ]
+  }
 }
