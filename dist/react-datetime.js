@@ -103,7 +103,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			open: TYPES.bool,
 			strictParsing: TYPES.bool,
 			closeOnSelect: TYPES.bool,
-			closeOnTab: TYPES.bool
+			closeOnTab: TYPES.bool,
+			showTimeSelector: TYPES.bool
 		},
 
 		getInitialState: function () {
@@ -185,7 +186,7 @@ return /******/ (function(modules) { // webpackBootstrap
 					time: props.timeFormat || ''
 				},
 				locale = this.localMoment(props.date, null, props).localeData()
-			;
+				;
 
 			if (formats.date === true) {
 				formats.date = locale.longDateFormat('L');
@@ -480,7 +481,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 
 		componentProps: {
-			fromProps: ['value', 'isValidDate', 'renderDay', 'renderMonth', 'renderYear', 'timeConstraints'],
+			fromProps: ['value', 'isValidDate', 'renderDay', 'renderMonth', 'renderYear', 'timeConstraints', 'showTimeSelector'],
 			fromState: ['viewDate', 'selectedDate', 'updateOn'],
 			fromThis: ['setDate', 'setTime', 'showView', 'addTime', 'subtractTime', 'updateSelectedDate', 'localMoment', 'handleClickOutside']
 		},
@@ -3407,7 +3408,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				tableChildren.push(footer);
 
 			return React.createElement('div', { className: 'rdtDays' },
-				[React.createElement('table', {}, tableChildren), React.createElement('div', { className: 'time-selector-container' }, timeSelector)]
+				[React.createElement('table', { key: 'table' }, tableChildren), React.createElement('div', { className: 'time-selector-container', key: 'time-selector' }, this.props.showTimeSelector ? timeSelector : null)]
 			);
 		},
 
