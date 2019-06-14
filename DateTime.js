@@ -42,7 +42,8 @@ var Datetime = createClass({
 		open: TYPES.bool,
 		strictParsing: TYPES.bool,
 		closeOnSelect: TYPES.bool,
-		closeOnTab: TYPES.bool
+		closeOnTab: TYPES.bool,
+		showTimeSelector: TYPES.bool
 	},
 
 	getInitialState: function () {
@@ -124,7 +125,7 @@ var Datetime = createClass({
 				time: props.timeFormat || ''
 			},
 			locale = this.localMoment(props.date, null, props).localeData()
-		;
+			;
 
 		if (formats.date === true) {
 			formats.date = locale.longDateFormat('L');
@@ -419,7 +420,7 @@ var Datetime = createClass({
 	},
 
 	componentProps: {
-		fromProps: ['value', 'isValidDate', 'renderDay', 'renderMonth', 'renderYear', 'timeConstraints'],
+		fromProps: ['value', 'isValidDate', 'renderDay', 'renderMonth', 'renderYear', 'timeConstraints', 'showTimeSelector'],
 		fromState: ['viewDate', 'selectedDate', 'updateOn'],
 		fromThis: ['setDate', 'setTime', 'showView', 'addTime', 'subtractTime', 'updateSelectedDate', 'localMoment', 'handleClickOutside']
 	},

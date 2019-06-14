@@ -8,8 +8,9 @@ ReactDOM.render(
 	value: moment(),
 	dateFormat: 'MMM D, YYYY',
 	timeFormat: 'h:mm a',
-	onChange: function (date) { console.log(date); },
-	closeOnSelect: true
+	onChange: function (date) { console.log('onChange called with the following date:', date); },
+	closeOnSelect: true,
+	showTimeSelector: true
 }),
   document.getElementById('datetime')
 );

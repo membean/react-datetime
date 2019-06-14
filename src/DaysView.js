@@ -83,7 +83,7 @@ var DateTimePickerDays = createClass({
 			tableChildren.push(footer);
 
 		return React.createElement('div', { className: 'rdtDays' },
-			[React.createElement('table', {}, tableChildren), React.createElement('div', { className: 'time-selector-container' }, timeSelector)]
+			[React.createElement('table', { key: 'table' }, tableChildren), React.createElement('div', { className: 'time-selector-container', key: 'time-selector' }, this.props.showTimeSelector ? timeSelector : null)]
 		);
 	},
 
