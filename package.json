@@ -1,8 +1,7 @@
 {
   "name": "react-datetime",
-  "version": "2.16.3-membean1",
+  "version": "2.16.3-membean2",
   "description": "A lightweight but complete datetime picker React.js component",
-  "homepage": "https://github.com/YouCanBookMe/react-datetime",
   "repository": {
     "type": "git",
     "url": "https://github.com/YouCanBookMe/react-datetime"
@@ -60,6 +59,7 @@
     "jest": "^18.1.0",
     "jest-cli": "^18.1.0",
     "jsdom": "^7.0.2",
+    "json-loader": "^0.5.7",
     "mocha": "^3.2.0",
     "moment": ">=2.16.0",
     "moment-timezone": "^0.5.13",

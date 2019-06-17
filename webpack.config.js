@@ -20,5 +20,13 @@ module.exports = {
     extensions: ['', '.js']
   },
 
+  module: {
+    loaders: [
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      }
+    ]
+  }
   plugins: plugins
 };

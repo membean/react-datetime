@@ -10,7 +10,8 @@ ReactDOM.render(
 	timeFormat: 'h:mm a',
 	onChange: function (date) { console.log('onChange called with the following date:', date); },
 	closeOnSelect: true,
-	showTimeSelector: true
+	showTimeSelector: true,
+	displayTimeZone: 'America/Phoenix'
 }),
   document.getElementById('datetime')
 );

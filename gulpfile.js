@@ -50,15 +50,18 @@ gulp.task( 'default', ['build'] );
 const getWebpackConfig = () => {
 	return {
 		devtool: '#cheap-module-source-map',
-		externals: {
-			react: 'React',
-			'react-dom': 'ReactDOM',
-			moment: 'moment'
-		},
 		output: {
 			library: 'Datetime',
 			libraryTarget: 'umd',
 			filename: 'react-datetime.js'
+		},
+		module: {
+			loaders: [
+				{
+					test: /\.json$/,
+					loader: 'json-loader'
+				}
+			]
 		}
 	};
 };
