@@ -7,29 +7,10 @@ var React = require('react'),
 	;
 
 var DateTimePickerDays = createClass({
-	// render: function () {
-	// 	console.log('hellllo');
-	// 	var that = this;
-
-	// 	var timePickerHeader = React.createElement('div', { className: 'react-datepicker-time__header' }, 'Time');
-
-	// 	var timePicker = React.createElement('ul', {}, that.renderTimes());
-
-	// 	var timePickerChildren = [
-	// 		React.createElement('div', { className: 'react-datepicker__header--time' }, timePickerHeader),
-	// 		React.createElement('div', { className: 'react-datepicker__time' }, timePicker)
-	// 	];
-	// 	return React.createElement('div', { className: 'timepicker_main' }, timePickerChildren);
-	// },
 	renderTimes: function () {
 		var that = this;
 		var times = [];
-		var format = 'p';
-		// var intervals = this.props.intervals;
-		var activeTime = this.props.value || moment(moment(), this.props.displayTimezone);
-		var currH = activeTime.format('h');
-		var currM = activeTime.format('m');
-		var base = activeTime.startOf('day');
+
 		for (var i = 0; i < 24; i++) {
 			var formattedTime;
 			if (i === 0) {
