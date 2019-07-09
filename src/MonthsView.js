@@ -8,7 +8,7 @@ var DateTimePickerMonths = createClass({
 	render: function() {
 		return React.createElement('div', { className: 'rdtMonths' },
 			React.createElement('table', { key: 'a' }, [
-				React.createElement('thead', {}, React.createElement('tr', {}, [
+				React.createElement('thead', { key: 'thead' }, React.createElement('tr', { key: 'row' }, [
 					React.createElement('th', { key: 'prev', className: 'rdtPrev', onClick: this.props.subtractTime( 1, 'years' )}, React.createElement('span', {}, '<' )),
 					React.createElement('th', { key: 'year', className: 'rdtSwitch', onClick: this.props.showView( 'years' ), colSpan: 2, 'data-value': this.props.viewDate.year() }, this.props.viewDate.year() ),
 					React.createElement('th', { key: 'next', className: 'rdtNext', onClick: this.props.addTime( 1, 'years' )}, React.createElement('span', {}, '>' ))

@@ -9,7 +9,7 @@
   z-index: 9999;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 480px) {
  .rdtOpen .rdtPicker {
     position: fixed;
     width: 100%;
@@ -30,6 +30,10 @@
   border-spacing: 0;
   border: 0;
   border: none;
+}
+
+.dow {
+  text-align: center;
 }
 
 .rdtPrev,
@@ -69,8 +73,8 @@
 .rdtYears table thead tr,
 .rdtMonths table thead tr,
 .rdtDays table thead tr {
-  height: 50px;
-  line-height: 50px;
+  height: 40px;
+  line-height: 40px;
 }
 
 .time-selector-container {
