@@ -1,5 +1,5 @@
 /*
-react-datetime v2.16.3-membean4
+react-datetime v2.16.3-membean5
 undefined
 MIT: https://github.com/YouCanBookMe/react-datetime/raw/master/LICENSE
 */
@@ -23790,9 +23790,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			tableChildren = [
 				React.createElement('thead', { key: 'th' }, [
 					React.createElement('tr', { key: 'h' }, [
-						React.createElement('th', { key: 'p', className: 'rdtPrev', onClick: this.props.subtractTime(1, 'months') }, React.createElement('span', {}, '<')),
+						React.createElement('th', { key: 'p', className: 'rdtPrev', onClick: this.props.subtractTime(1, 'months') }, '<' ),
 						React.createElement('th', { key: 's', className: 'rdtSwitch', onClick: this.props.showView('months'), colSpan: 5, 'data-value': this.props.viewDate.month() }, locale.months(date) + ' ' + date.year()),
-						React.createElement('th', { key: 'n', className: 'rdtNext', onClick: this.props.addTime(1, 'months') }, React.createElement('span', {}, '>'))
+						React.createElement('th', { key: 'n', className: 'rdtNext', onClick: this.props.addTime(1, 'months') }, '>' )
 					]),
 					React.createElement('tr', { key: 'd' }, this.getDaysOfWeek(locale).map(function (day, index) { return React.createElement('th', { key: day + index, className: 'dow' }, day); }))
 				]),
@@ -24166,13 +24166,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DateTimePickerMonths = createClass({
 		render: function() {
 			return React.createElement('div', { className: 'rdtMonths' },
-				React.createElement('table', { key: 'a' }, [
-					React.createElement('thead', {}, React.createElement('tr', {}, [
-						React.createElement('th', { key: 'prev', className: 'rdtPrev', onClick: this.props.subtractTime( 1, 'years' )}, React.createElement('span', {}, '<' )),
+				React.createElement('table', { key: 'table' }, [
+					React.createElement('thead', { key: 'thead' }, React.createElement('tr', { key: 'row' }, [
+						React.createElement('th', { key: 'prev', className: 'rdtPrev', onClick: this.props.subtractTime( 1, 'years' )}, '<' ),
 						React.createElement('th', { key: 'year', className: 'rdtSwitch', onClick: this.props.showView( 'years' ), colSpan: 2, 'data-value': this.props.viewDate.year() }, this.props.viewDate.year() ),
-						React.createElement('th', { key: 'next', className: 'rdtNext', onClick: this.props.addTime( 1, 'years' )}, React.createElement('span', {}, '>' ))
+						React.createElement('th', { key: 'next', className: 'rdtNext', onClick: this.props.addTime( 1, 'years' )}, '>')
 					])),
-					React.createElement('tbody', { key: 'b' }, this.renderMonths())
+					React.createElement('tbody', { key: 'tbody' }, this.renderMonths())
 				])
 			);
 		},
@@ -24278,13 +24278,13 @@ return /******/ (function(modules) { // webpackBootstrap
 			var year = parseInt( this.props.viewDate.year() / 10, 10 ) * 10;
 
 			return React.createElement('div', { className: 'rdtYears' }, [
-				React.createElement('table', { key: 'a' }, [
-					React.createElement('thead', {}, React.createElement('tr', {}, [
-						React.createElement('th', { key: 'prev', className: 'rdtPrev', onClick: this.props.subtractTime( 10, 'years' )}, React.createElement('span', {}, '<' )),
+				React.createElement('table', { key: 'table' }, [
+					React.createElement('thead', { key: 'thead' }, React.createElement('tr', { key: 'tr' }, [
+						React.createElement('th', { key: 'prev', className: 'rdtPrev', onClick: this.props.subtractTime( 10, 'years' )}, '<' ),
 						React.createElement('th', { key: 'year', className: 'rdtSwitch', onClick: this.props.showView( 'years' ), colSpan: 2 }, year + '-' + ( year + 9 ) ),
-						React.createElement('th', { key: 'next', className: 'rdtNext', onClick: this.props.addTime( 10, 'years' )}, React.createElement('span', {}, '>' ))
+						React.createElement('th', { key: 'next', className: 'rdtNext', onClick: this.props.addTime( 10, 'years' )}, '>' )
 					])),
-					React.createElement('tbody',  {}, this.renderYears( year ))
+					React.createElement('tbody',  { key: 'tbody' }, this.renderYears( year ))
 				])
 			]);
 		},
