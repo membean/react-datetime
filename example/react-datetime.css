@@ -70,6 +70,10 @@
   height: 100%;
 }
 
+.rdtDays.rdtNoTime table {
+  width: 100%;
+}
+
 .rdtYears table thead tr,
 .rdtMonths table thead tr,
 .rdtDays table thead tr {

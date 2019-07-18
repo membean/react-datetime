@@ -43,7 +43,8 @@ var DateTimePickerDays = createClass({
 			date = this.props.viewDate,
 			locale = date.localeData(),
 			tableChildren,
-			timeSelector
+			timeSelector,
+			daysClass
 			;
 
 		tableChildren = [
@@ -58,14 +59,22 @@ var DateTimePickerDays = createClass({
 			React.createElement('tbody', { key: 'tb' }, this.renderDays())
 		];
 
-		timeSelector = React.createElement('ul', { className: 'time-selector-times' }, this.renderTimes());
+		if (this.props.showTimeSelector) {
+			timeSelector = React.createElement('div', { className: 'time-selector-container', key: 'time-selector' }, [
+				React.createElement('ul', { className: 'time-selector-times' }, this.renderTimes())
+			]);
+			daysClass = 'rdtDays';
+		} else {
+			daysClass = 'rdtDays rdtNoTime';
+		}
 
 		if (footer)
 			tableChildren.push(footer);
 
-		return React.createElement('div', { className: 'rdtDays' },
-			[React.createElement('table', { key: 'table' }, tableChildren), React.createElement('div', { className: 'time-selector-container', key: 'time-selector' }, this.props.showTimeSelector ? timeSelector : null)]
-		);
+		return React.createElement('div', { className: daysClass }, [
+				React.createElement('table', { key: 'table' }, tableChildren),
+				timeSelector
+		]);
 	},
 
 	/**
