@@ -8,7 +8,9 @@ ReactDOM.render(
 	value: moment(),
 	dateFormat: 'MMM D, YYYY',
 	timeFormat: 'h:mm a',
-	onChange: function (date) { console.log('onChange called with the following date:', date); },
+	onChange: function (date) { 
+		console.log('onChange called with the following date:', date.format());
+	},
 	closeOnSelect: true,
 	showTimeSelector: true,
 	displayTimeZone: 'America/Phoenix'

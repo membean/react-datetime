@@ -30,7 +30,7 @@ var DateTimePickerDays = createClass({
 			} else if (time.hour === 0) {
 				formattedHour = 12;
 			}
-			var timeString = formattedHour + ':00';
+			var timeString = formattedHour + ':00' + time.amPm;
 			return React.createElement('li', {
 				key: idx, className: 'time-selector-time', onClick: function () {
 					that.props.setTime(time);
@@ -61,7 +61,7 @@ var DateTimePickerDays = createClass({
 
 		if (this.props.showTimeSelector) {
 			timeSelector = React.createElement('div', { className: 'time-selector-container', key: 'time-selector' }, [
-				React.createElement('ul', { className: 'time-selector-times' }, this.renderTimes())
+				React.createElement('ul', { className: 'time-selector-times', key: 'time-selector-list' }, this.renderTimes())
 			]);
 			daysClass = 'rdtDays';
 		} else {

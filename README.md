@@ -1,5 +1,15 @@
 # react-datetime
 
+
+# Membean Release
+
+```
+yarn version
+git tag <new-version>
+git push origin <new-version>
+
+```
+
 [![Build Status](https://api.travis-ci.org/YouCanBookMe/react-datetime.svg?branch=master)](https://travis-ci.org/YouCanBookMe/react-datetime.svg?branch=master)
 [![npm version](https://badge.fury.io/js/react-datetime.svg)](http://badge.fury.io/js/react-datetime)
 
