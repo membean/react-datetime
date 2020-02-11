@@ -14,11 +14,11 @@ var DateTimePickerDays = createClass({
 		for (var i = 0; i < 24; i++) {
 			var formattedTime;
 			if (i === 0) {
-				formattedTime = { hour: i, amPm: 'am' };
-			} else if (i > 12) {
-				formattedTime = { hour: i, amPm: 'pm' };
+				formattedTime = { hour: i, amPm: 'AM' };
+			} else if (i >= 12) {
+				formattedTime = { hour: i, amPm: 'PM' };
 			} else {
-				formattedTime = { hour: i, amPm: 'am' };
+				formattedTime = { hour: i, amPm: 'AM' };
 			}
 			times.push(formattedTime);
 		}

@@ -1,5 +1,5 @@
 /*
-react-datetime v2.16.3-membean5
+react-datetime v2.16.3-membean7
 undefined
 MIT: https://github.com/YouCanBookMe/react-datetime/raw/master/LICENSE
 */
@@ -23755,11 +23755,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			for (var i = 0; i < 24; i++) {
 				var formattedTime;
 				if (i === 0) {
-					formattedTime = { hour: i, amPm: 'am' };
-				} else if (i > 12) {
-					formattedTime = { hour: i, amPm: 'pm' };
+					formattedTime = { hour: i, amPm: 'AM' };
+				} else if (i >= 12) {
+					formattedTime = { hour: i, amPm: 'PM' };
 				} else {
-					formattedTime = { hour: i, amPm: 'am' };
+					formattedTime = { hour: i, amPm: 'AM' };
 				}
 				times.push(formattedTime);
 			}
@@ -23771,7 +23771,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				} else if (time.hour === 0) {
 					formattedHour = 12;
 				}
-				var timeString = formattedHour + ':00';
+				var timeString = formattedHour + ':00' + time.amPm;
 				return React.createElement('li', {
 					key: idx, className: 'time-selector-time', onClick: function () {
 						that.props.setTime(time);
@@ -23784,7 +23784,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				date = this.props.viewDate,
 				locale = date.localeData(),
 				tableChildren,
-				timeSelector
+				timeSelector,
+				daysClass
 				;
 
 			tableChildren = [
@@ -23799,14 +23800,22 @@ return /******/ (function(modules) { // webpackBootstrap
 				React.createElement('tbody', { key: 'tb' }, this.renderDays())
 			];
 
-			timeSelector = React.createElement('ul', { className: 'time-selector-times' }, this.renderTimes());
+			if (this.props.showTimeSelector) {
+				timeSelector = React.createElement('div', { className: 'time-selector-container', key: 'time-selector' }, [
+					React.createElement('ul', { className: 'time-selector-times', key: 'time-selector-list' }, this.renderTimes())
+				]);
+				daysClass = 'rdtDays';
+			} else {
+				daysClass = 'rdtDays rdtNoTime';
+			}
 
 			if (footer)
 				tableChildren.push(footer);
 
-			return React.createElement('div', { className: 'rdtDays' },
-				[React.createElement('table', { key: 'table' }, tableChildren), React.createElement('div', { className: 'time-selector-container', key: 'time-selector' }, this.props.showTimeSelector ? timeSelector : null)]
-			);
+			return React.createElement('div', { className: daysClass }, [
+					React.createElement('table', { key: 'table' }, tableChildren),
+					timeSelector
+			]);
 		},
 
 		/**
