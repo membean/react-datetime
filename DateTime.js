@@ -141,12 +141,13 @@ var Datetime = createClass({
 		formats.datetime = formats.date && formats.time ?
 			formats.date + ' ' + formats.time :
 			formats.date || formats.time
-			;
+		;
 
 		return formats;
 	},
 
-	componentWillReceiveProps: function (nextProps) {
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillReceiveProps: function (nextProps) {
 		var formats = this.getFormats(nextProps),
 			updatedState = {}
 		;
@@ -469,8 +470,8 @@ var Datetime = createClass({
 		// TODO: Make a function or clean up this code,
 		// logic right now is really hard to follow
 		var className = 'rdt' + (this.props.className ?
-									( Array.isArray( this.props.className ) ?
-									' ' + this.props.className.join( ' ' ) : ' ' + this.props.className) : ''),
+				( Array.isArray( this.props.className ) ?
+					' ' + this.props.className.join( ' ' ) : ' ' + this.props.className) : ''),
 			children = [];
 
 		if ( this.props.input ) {
