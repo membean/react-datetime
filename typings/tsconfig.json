@@ -3,8 +3,11 @@
         "noImplicitAny": true,
         "strictNullChecks": false,
         "types": [],
+        "lib": ["ES2015", "DOM"],
+        "skipLibCheck": true,
         "noEmit": true,
         "jsx": "react",
+        "esModuleInterop": true,
         "baseUrl": "../",
         "paths": {
             "react-datetime": ["./"]

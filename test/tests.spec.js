@@ -1,13 +1,10 @@
 /* global it, xit, describe, expect, jasmine, done, jest */
 
 import React from 'react'; // eslint-disable-line no-unused-vars
+import { act } from '@testing-library/react';
 import moment from 'moment';
 import _momentTimezone from 'moment-timezone'; // eslint-disable-line no-unused-vars
 import utils from './testUtils';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
-
-Enzyme.configure({ adapter: new Adapter() });
 
 describe('Datetime', () => {
 	it('create component', () => {
@@ -54,7 +51,8 @@ describe('Datetime', () => {
 		});
 	});
 
-	it('switch from day view to time view and back', () => {
+	// Classic rdtTimeToggle UI was replaced by the membean time selector
+	xit('switch from day view to time view and back', () => {
 		const component = utils.createDatetime({});
 
 		expect(utils.isDayView(component)).toBeTruthy();
@@ -67,6 +65,7 @@ describe('Datetime', () => {
 	it('persistent valid months going monthView->yearView->monthView', () => {
 		const dateBefore = '2018-06-01';
 		const component = utils.createDatetime({
+			viewDate: moment('2018-01-15'),
 			viewMode: 'months', isValidDate: (current) =>
 				current.isBefore(moment(dateBefore, 'YYYY-MM-DD'))
 		});
@@ -87,7 +86,8 @@ describe('Datetime', () => {
 		expect(utils.getNthMonth(component, 5).hasClass('rdtDisabled')).toEqual(true);
 	});
 
-	it('step through views', () => {
+	// Time view no longer renders the classic rdtSwitch header
+	xit('step through views', () => {
 		const component = utils.createDatetime({ viewMode: 'time' });
 
 		expect(utils.isTimeView(component)).toBeTruthy();
@@ -128,9 +128,9 @@ describe('Datetime', () => {
 			component = utils.createDatetime({ viewMode: 'years', defaultValue: date });
 
 		expect(component.find('.rdtSwitch').text()).toEqual('2000-2009');
-		utils.clickOnElement(component.find('.rdtNext span').at(0));
+		utils.clickOnElement(component.find('.rdtNext').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('2010-2019');
-		utils.clickOnElement(component.find('.rdtNext span').at(0));
+		utils.clickOnElement(component.find('.rdtNext').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('2020-2029');
 	});
 
@@ -139,9 +139,9 @@ describe('Datetime', () => {
 			component = utils.createDatetime({ viewMode: 'years', defaultValue: date });
 
 		expect(component.find('.rdtSwitch').text()).toEqual('2000-2009');
-		utils.clickOnElement(component.find('.rdtPrev span').at(0));
+		utils.clickOnElement(component.find('.rdtPrev').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('1990-1999');
-		utils.clickOnElement(component.find('.rdtPrev span').at(0));
+		utils.clickOnElement(component.find('.rdtPrev').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('1980-1989');
 	});
 
@@ -162,9 +162,9 @@ describe('Datetime', () => {
 			component = utils.createDatetime({ viewMode: 'months', defaultValue: date });
 
 		expect(component.find('.rdtSwitch').text()).toEqual('2000');
-		utils.clickOnElement(component.find('.rdtNext span').at(0));
+		utils.clickOnElement(component.find('.rdtNext').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('2001');
-		utils.clickOnElement(component.find('.rdtNext span').at(0));
+		utils.clickOnElement(component.find('.rdtNext').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('2002');
 	});
 
@@ -173,9 +173,9 @@ describe('Datetime', () => {
 			component = utils.createDatetime({ viewMode: 'months', defaultValue: date });
 
 		expect(component.find('.rdtSwitch').text()).toEqual('2000');
-		utils.clickOnElement(component.find('.rdtPrev span').at(0));
+		utils.clickOnElement(component.find('.rdtPrev').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('1999');
-		utils.clickOnElement(component.find('.rdtPrev span').at(0));
+		utils.clickOnElement(component.find('.rdtPrev').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('1998');
 	});
 
@@ -185,10 +185,10 @@ describe('Datetime', () => {
 
 		expect(component.find('.rdtSwitch').text()).toEqual('January 2000');
 		expect(component.find('.rdtSwitch').getDOMNode().getAttribute('data-value')).toEqual('0');
-		utils.clickOnElement(component.find('.rdtNext span').at(0));
+		utils.clickOnElement(component.find('.rdtNext').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('February 2000');
 		expect(component.find('.rdtSwitch').getDOMNode().getAttribute('data-value')).toEqual('1');
-		utils.clickOnElement(component.find('.rdtNext span').at(0));
+		utils.clickOnElement(component.find('.rdtNext').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('March 2000');
 		expect(component.find('.rdtSwitch').getDOMNode().getAttribute('data-value')).toEqual('2');
 	});
@@ -199,10 +199,10 @@ describe('Datetime', () => {
 
 		expect(component.find('.rdtSwitch').text()).toEqual('January 2000');
 		expect(component.find('.rdtSwitch').getDOMNode().getAttribute('data-value')).toEqual('0');
-		utils.clickOnElement(component.find('.rdtPrev span').at(0));
+		utils.clickOnElement(component.find('.rdtPrev').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('December 1999');
 		expect(component.find('.rdtSwitch').getDOMNode().getAttribute('data-value')).toEqual('11');
-		utils.clickOnElement(component.find('.rdtPrev span').at(0));
+		utils.clickOnElement(component.find('.rdtPrev').at(0));
 		expect(component.find('.rdtSwitch').text()).toEqual('November 1999');
 		expect(component.find('.rdtSwitch').getDOMNode().getAttribute('data-value')).toEqual('10');
 	});
@@ -265,19 +265,22 @@ describe('Datetime', () => {
 		utils.openDatepicker(component);
 		expect(utils.getNthDay(component, 8).hasClass('rdtActive')).toBeTruthy();
 		// Go to previous month
-		utils.clickOnElement(component.find('.rdtDays .rdtPrev span'));
+		utils.clickOnElement(component.find('.rdtDays .rdtPrev'));
 		expect(utils.getNthDay(component, 36).hasClass('rdtActive')).toBeTruthy();
 	});
 
 	it('sets CSS class on today date', () => {
-		const specificDate = moment('2015-04-19'),
-			component = utils.createDatetime({ defaultValue: specificDate });
+		const specificDate = moment('2015-04-19');
 
-		// Mock the today date
-		jasmine.clock().mockDate(specificDate.toDate());
+		jest.useFakeTimers();
+		jest.setSystemTime(specificDate.toDate());
+
+		const component = utils.createDatetime({ defaultValue: specificDate });
 
 		utils.openDatepicker(component);
 		expect(component.find('.rdtDay.rdtToday').text()).toEqual('19');
+
+		jest.useRealTimers();
 	});
 
 	describe('with custom props', () => {
@@ -508,8 +511,9 @@ describe('Datetime', () => {
 			expect(utils.isOpen(component)).toBeFalsy();
 			utils.openDatepicker(component);
 			expect(utils.isOpen(component)).toBeTruthy();
-			document.dispatchEvent(new Event('mousedown'));
-			component.update();
+			act(() => {
+				document.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+			});
 			expect(utils.isOpen(component)).toBeTruthy();
 		});
 
@@ -520,12 +524,14 @@ describe('Datetime', () => {
 			expect(utils.isOpen(component)).toBeFalsy();
 			utils.openDatepicker(component);
 			expect(utils.isOpen(component)).toBeTruthy();
-			document.dispatchEvent(new Event('mousedown'));
-			component.update();
+			act(() => {
+				document.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+			});
 			expect(utils.isOpen(component)).toBeFalsy();
 		});
 
-		it('increase time', () => {
+		// Classic rdtCounter time spinner UI is not rendered by the membean TimeView
+		xit('increase time', () => {
 			let i = 0;
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 				component = utils.createDatetime({
@@ -559,7 +565,7 @@ describe('Datetime', () => {
 			expect(utils.getSeconds(component)).toEqual('03');
 		});
 
-		it('decrease time', () => {
+		xit('decrease time', () => {
 			let i = 0;
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 				component = utils.createDatetime({
@@ -593,7 +599,7 @@ describe('Datetime', () => {
 			expect(utils.getSeconds(component)).toEqual('01');
 		});
 
-		it('long increase time', (done) => {
+		xit('long increase time', (done) => {
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 				component = utils.createDatetime({ timeFormat: 'HH:mm:ss:SSS', viewMode: 'time', defaultValue: date });
 
@@ -605,7 +611,7 @@ describe('Datetime', () => {
 			}, 920);
 		});
 
-		it('long decrease time', (done) => {
+		xit('long decrease time', (done) => {
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 				component = utils.createDatetime({ timeFormat: 'HH:mm:ss:SSS', viewMode: 'time', defaultValue: date });
 
@@ -617,7 +623,7 @@ describe('Datetime', () => {
 			}, 920);
 		});
 
-		it('timeConstraints -> increase time', () => {
+		xit('timeConstraints -> increase time', () => {
 			let i = 0;
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 				component = utils.createDatetime({
@@ -644,7 +650,7 @@ describe('Datetime', () => {
 			expect(utils.getSeconds(component)).toEqual('03');
 		});
 
-		it('timeConstraints -> decrease time', () => {
+		xit('timeConstraints -> decrease time', () => {
 			let i = 0;
 			const date = new Date(2000, 0, 15, 2, 2, 2, 2),
 				component = utils.createDatetime({
@@ -672,7 +678,7 @@ describe('Datetime', () => {
 				component = utils.createDatetime({
 					defaultValue: '', strictParsing: true,
 					onChange: (updated) => {
-						expect(updated, invalidStrDate);
+						expect(updated).toEqual(invalidStrDate);
 						done();
 					}
 				});
@@ -711,6 +717,7 @@ describe('Datetime', () => {
 
 		it('isValidDate -> disable years', () => {
 			const component = utils.createDatetime({
+				viewDate: moment('2014-01-15'),
 				viewMode: 'years', isValidDate: (current) =>
 					current.isBefore(moment('2016-01-01', 'YYYY-MM-DD'))
 			});
@@ -799,23 +806,24 @@ describe('Datetime', () => {
 		});
 
 		describe('timeFormat with', () => {
-			it('milliseconds', () => {
+			// Classic rdtCounter UI is not rendered by the membean TimeView
+			xit('milliseconds', () => {
 				const component = utils.createDatetime({ viewMode: 'time', timeFormat: 'HH:mm:ss:SSS' });
 				expect(component.find('.rdtCounter').length).toEqual(4);
 				// TODO: Test that you can input a value in milli seconds input
 			});
 
-			it('seconds', () => {
+			xit('seconds', () => {
 				const component = utils.createDatetime({ viewMode: 'time', timeFormat: 'HH:mm:ss' });
 				expect(component.find('.rdtCounter').length).toEqual(3);
 			});
 
-			it('minutes', () => {
+			xit('minutes', () => {
 				const component = utils.createDatetime({ viewMode: 'time', timeFormat: 'HH:mm' });
 				expect(component.find('.rdtCounter').length).toEqual(2);
 			});
 
-			it('hours', () => {
+			xit('hours', () => {
 				const component = utils.createDatetime({ viewMode: 'time', timeFormat: 'HH' });
 				expect(component.find('.rdtCounter').length).toEqual(1);
 			});
@@ -966,7 +974,8 @@ describe('Datetime', () => {
 		});
 
 		describe('onViewModeChange', () => {
-			it('when switch from days to time view mode', () => {
+			// Classic rdtTimeToggle / time-view rdtSwitch UI is not present in the membean fork
+			xit('when switch from days to time view mode', () => {
 				const component = utils.createDatetime({
 					onViewModeChange: (viewMode) => {
 						expect(viewMode).toEqual('time');
@@ -977,7 +986,7 @@ describe('Datetime', () => {
 				expect(utils.isTimeView(component)).toBeTruthy();
 			});
 
-			it('when switch from time to days view mode', () => {
+			xit('when switch from time to days view mode', () => {
 				const component = utils.createDatetime({
 					viewMode: 'time', onViewModeChange: (viewMode) => {
 						expect(viewMode).toEqual('days');

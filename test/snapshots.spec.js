@@ -4,15 +4,6 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import Datetime from '../DateTime.js';
 import renderer from 'react-test-renderer';
 
-// findDOMNode is not supported by the react-test-renderer,
-// and even though this component is not using that method
-// a dependency is probably using it. So we need to mock it
-// to make the tests pass.
-// https://github.com/facebook/react/issues/7371
-jest.mock('react-dom', () => ({
-    findDOMNode: () => {},
-}));
-
 // Mock date to get rid of time as a factor to make tests deterministic
 Date.now = jest.fn(() => 1482363367071);
 
