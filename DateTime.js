@@ -508,8 +508,16 @@ var Datetime = createClass({
 });
 
 var ClickableWrapper = onClickOutside( createClass({
+	// Avoid react-dom findDOMNode (removed in React 19)
+	setClickOutsideRef: function() {
+		return this._containerNode;
+	},
 	render: function() {
-		return React.createElement( 'div', { className: this.props.className }, this.props.children );
+		var me = this;
+		return React.createElement( 'div', {
+			className: this.props.className,
+			ref: function( node ) { me._containerNode = node; }
+		}, this.props.children );
 	},
 	handleClickOutside: function( e ) {
 		this.props.onClickOut( e );

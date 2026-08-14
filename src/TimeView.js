@@ -155,13 +155,14 @@ var DateTimePickerTime = createClass({
 	render: function () {
 		var timeSelector = React.createElement('ul', {}, this.renderTimes()),
 			timeSelectorHeader = React.createElement('div', {}, 'Time');
-		return React.createElement('div', {}, [
+		return React.createElement('div', { className: 'rdtTime' }, [
 			React.createElement('div', {}, timeSelectorHeader),
 			timeSelector,
 		]);
 	},
 
-	componentWillMount: function () {
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillMount: function () {
 		var me = this;
 		me.timeConstraints = {
 			hours: {

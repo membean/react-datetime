@@ -3,10 +3,6 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import moment from 'moment';
 import utils from './testUtils';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
-
-Enzyme.configure({adapter: new Adapter()});
 
 describe('with viewDate', () => {
     it('date value', () => {

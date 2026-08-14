@@ -135,21 +135,21 @@ declare namespace ReactDatetimeClass {
          the selectedDate, the current date and the default calculated props for the cell,
          and must return a React component. See appearance customization
          */
-        renderDay?: (props: any, currentDate: any, selectedDate: any) => JSX.Element;
+        renderDay?: (props: any, currentDate: any, selectedDate: any) => React.ReactElement;
         /*
          Customize the way that the months are shown in the month picker.
          The accepted function has the selectedDate, the current date and the default calculated
          props for the cell, the month and the year to be shown, and must return a
          React component. See appearance customization
          */
-        renderMonth?: (props: any, month: number, year: number, selectedDate: any) => JSX.Element;
+        renderMonth?: (props: any, month: number, year: number, selectedDate: any) => React.ReactElement;
         /*
          Customize the way that the years are shown in the year picker.
          The accepted function has the selectedDate, the current date and the default calculated
          props for the cell, the year to be shown, and must return a React component.
          See appearance customization
          */
-        renderYear?: (props: any, year: number, selectedDate: any) => JSX.Element;
+        renderYear?: (props: any, year: number, selectedDate: any) => React.ReactElement;
         /*
          Whether to use moment's strict parsing when parsing input.
          */
