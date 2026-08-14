@@ -7,6 +7,4 @@ module.exports = {
 			babelrc: false,
 		}],
 	},
-	// react-onclickoutside registers document listeners that keep Jest alive
-	forceExit: true,
 };

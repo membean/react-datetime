@@ -5,8 +5,7 @@ var assign = require('object-assign'),
 	createClass = require('create-react-class'),
 	moment = require('moment-timezone'),
 	React = require('react'),
-	CalendarContainer = require('./src/CalendarContainer'),
-	onClickOutside = require('react-onclickoutside').default
+	CalendarContainer = require('./src/CalendarContainer')
 	;
 
 var viewModes = Object.freeze({
@@ -507,22 +506,33 @@ var Datetime = createClass({
 	}
 });
 
-var ClickableWrapper = onClickOutside( createClass({
-	// Avoid react-dom findDOMNode (removed in React 19)
-	setClickOutsideRef: function() {
-		return this._containerNode;
+var ClickableWrapper = createClass({
+	displayName: 'ClickableWrapper',
+
+	componentDidMount: function() {
+		this._onPointerDown = function( event ) {
+			var node = this._containerNode;
+			if (!node || node.contains(event.target)) return;
+			this.props.onClickOut(event);
+		}.bind(this);
+
+		document.addEventListener('mousedown', this._onPointerDown);
+		document.addEventListener('touchstart', this._onPointerDown);
 	},
+
+	componentWillUnmount: function() {
+		document.removeEventListener('mousedown', this._onPointerDown);
+		document.removeEventListener('touchstart', this._onPointerDown);
+	},
+
 	render: function() {
 		var me = this;
-		return React.createElement( 'div', {
+		return React.createElement('div', {
 			className: this.props.className,
-			ref: function( node ) { me._containerNode = node; }
-		}, this.props.children );
-	},
-	handleClickOutside: function( e ) {
-		this.props.onClickOut( e );
+			ref: function(node) { me._containerNode = node; }
+		}, this.props.children);
 	}
-}));
+});
 
 Datetime.defaultProps = {
 	className: '',

@@ -153,10 +153,10 @@ var DateTimePickerTime = createClass({
 	},
 
 	render: function () {
-		var timeSelector = React.createElement('ul', {}, this.renderTimes()),
-			timeSelectorHeader = React.createElement('div', {}, 'Time');
+		var timeSelector = React.createElement('ul', { key: 'times' }, this.renderTimes()),
+			timeSelectorHeader = React.createElement('div', { key: 'header' }, 'Time');
 		return React.createElement('div', { className: 'rdtTime' }, [
-			React.createElement('div', {}, timeSelectorHeader),
+			React.createElement('div', { key: 'header-wrap' }, timeSelectorHeader),
 			timeSelector,
 		]);
 	},
