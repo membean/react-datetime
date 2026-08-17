@@ -7472,19 +7472,6 @@ react-is@^19.2.8:
   resolved "https://registry.npmjs.org/react-is/-/react-is-19.2.8.tgz"
   integrity sha512-s5un28nYxKJw5gvUHyW5PCC28CvBqLu9r3cWgzHT4Vo/5fqqkFcdRYsGcKf50WMPpjjFZS5d76fn3YCo2njKwQ==
 
-react-onclickoutside@^6.13.2:
-  version "6.13.2"
-  resolved "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-6.13.2.tgz"
-  integrity sha512-h6Hbf1c8b7tIYY4u90mDdBLY4+AGQVMFtIE89HgC0DtVCh/JfKl477gYqUtGLmjZBKK3MJxomP/lFiLbz4sq9A==
-
-react-test-renderer@^19.2.8:
-  version "19.2.8"
-  resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-19.2.8.tgz"
-  integrity sha512-GHKPaDRaNYU24PHTLG8Bx8VMY9t+qNfxQbt/Yjp7aMWBkKU6766SR0n6TnYu7P5I1MfEuAMUadqiyDHyI4Yy9Q==
-  dependencies:
-    react-is "^19.2.8"
-    scheduler "^0.27.0"
-
 react@^19.2.8:
   version "19.2.8"
   resolved "https://registry.npmjs.org/react/-/react-19.2.8.tgz"

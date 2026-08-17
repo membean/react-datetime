@@ -73,8 +73,8 @@ var DateTimePickerDays = createClass({
 
 		return React.createElement('div', { className: daysClass }, [
 				React.createElement('table', { key: 'table' }, tableChildren),
-				timeSelector
-		]);
+				timeSelector || null
+		].filter(Boolean));
 	},
 
 	/**
